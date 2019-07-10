@@ -1,7 +1,9 @@
 package com.clarity.android.interview.network;
 
+import com.clarity.android.interview.model.DiscountResponse;
+import com.clarity.android.interview.model.OrderResponse;
+import com.clarity.android.interview.model.OrdersResponse;
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 

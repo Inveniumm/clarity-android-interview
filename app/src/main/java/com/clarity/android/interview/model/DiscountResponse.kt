@@ -1,4 +1,4 @@
-package com.clarity.android.interview.network
+package com.clarity.android.interview.model
 
 class DiscountResponse(
   val id: Long,

@@ -1,29 +1,30 @@
 package com.clarity.android.interview
 
+import com.clarity.android.interview.network.NetworkService
 import io.reactivex.annotations.Nullable
 
 class MainActivityViewModel {
+  private val networkService: NetworkService
 
-  interface UpdateListener {
-    fun onUpdate(state: ItemListViewState)
-  }
-
-  private val itemListViewState: ItemListViewState
-  private var listener: UpdateListener? = null
+  private var itemListViewState: ItemListViewState
+  private var listener: ((ItemListViewState) -> Unit)? = null
 
   init {
-    val items = listOf(
-        ItemRow("Cabbage"),
-        ItemRow("Apple"),
-        ItemRow("Bread")
-    )
-
-    itemListViewState = ItemListViewState("Delivery Items", items)
+    networkService = NetworkService()
+    itemListViewState = ItemListViewState("Delivery Items", emptyList())
   }
 
-  fun setStateUpdateListener(@Nullable listener: UpdateListener?) {
+  fun setStateUpdateListener(@Nullable listener: ((ItemListViewState) -> Unit)?) {
     this.listener = listener
+  }
 
-    listener?.onUpdate(itemListViewState)
+  fun loadItems() {
+    val items = listOf(
+      ItemRow("Cabbage"),
+      ItemRow("Apple"),
+      ItemRow("Bread")
+    )
+    itemListViewState = itemListViewState.copy(items = items)
+    listener?.invoke(itemListViewState)
   }
 }

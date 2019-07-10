@@ -1,4 +1,4 @@
-package com.clarity.android.interview.network
+package com.clarity.android.interview.model
 
 import com.google.gson.annotations.SerializedName
 

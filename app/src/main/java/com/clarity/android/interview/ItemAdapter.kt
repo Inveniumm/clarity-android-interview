@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.clarity.android.interview.ItemAdapter.ViewHolder
-import java.util.ArrayList
+import java.util.*
 
 class ItemAdapter : RecyclerView.Adapter<ViewHolder>() {
 
