@@ -8,7 +8,7 @@ class MainActivityViewModel {
 
   private var itemListViewState: ItemListViewState
   private var listener: ((ItemListViewState) -> Unit)? = null
-
+  
   init {
     networkService = NetworkService()
     itemListViewState = ItemListViewState("Delivery Items", emptyList())
