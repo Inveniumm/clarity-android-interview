@@ -8,7 +8,7 @@ class MainActivityViewModel {
     fun onUpdate(state: ItemListViewState)
   }
 
-  private val itemListViewState: ItemListViewState
+  private var itemListViewState: ItemListViewState
   private var listener: UpdateListener? = null
 
   init {
