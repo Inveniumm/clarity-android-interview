@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.clarity.android.interview.MainActivityViewModel.UpdateListener
+import com.clarity.android.interview.viewModels.MainActivityViewModel
+import com.clarity.android.interview.viewModels.MainActivityViewModel.UpdateListener
 
 class MainActivity : AppCompatActivity() {
 
