@@ -19,8 +19,8 @@ interface NetworkApi {
     suspend fun fetchOrdersSuspendable(): OrdersResponse
 
     @GET("order/{order_id}")
-    fun fetchOrderByIdSuspendable(@Path("order_id") id: Long): OrderResponse
+    suspend fun fetchOrderByIdSuspendable(@Path("order_id") id: Long): OrderResponse
 
     @GET("discount/{item_id}")
-    fun discountSuspendable(@Path("item_id") id: Long): DiscountResponse
+    suspend fun discountSuspendable(@Path("item_id") id: Long): DiscountResponse
 }
