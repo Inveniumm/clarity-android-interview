@@ -1,5 +1,7 @@
-package com.clarity.android.interview
+package com.clarity.android.interview.viewModels
 
+import com.clarity.android.interview.ItemListViewState
+import com.clarity.android.interview.ItemRow
 import io.reactivex.annotations.Nullable
 
 class MainActivityViewModel {
