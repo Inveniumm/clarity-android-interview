@@ -24,29 +24,31 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-
+    val viewModel = MainActivityViewModel()
     val itemScreenContainerView = findViewById<View>(R.id.item_screen_container)
     bindViews(itemScreenContainerView)
 
-    val viewModel = MainActivityViewModel()
     viewModel.setStateUpdateListener(object : UpdateListener {
       override fun onUpdate(state: ItemListViewState) {
         renderItemList(state)
       }
     })
+
   }
 
   private fun renderItemList(state: ItemListViewState) {
     val viewModel = MainActivityViewModel()
     viewModel.makeApiCall(1)
+
     viewModel.getBookListObserver().observe(this) {
       if (it != null) {
-        //update adapter...
         toolbarText.text = state.toolbarTitle
+        // as operator which casts the object to another object with particular reference.
         adapter.items = it.items as ArrayList<DeliveryItem>
+        //update adapter...
         adapter.notifyDataSetChanged()
-        println(adapter.items.toString())
       } else {
+        ///if the response is null then it will send a toast to show that it is broken.
         Toast.makeText(this, "Error in fetching data", Toast.LENGTH_SHORT).show()
       }
     }
