@@ -2,12 +2,18 @@ package com.clarity.android.interview
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.clarity.android.interview.network.DeliveryItem
 import com.clarity.android.interview.viewModels.MainActivityViewModel
 import com.clarity.android.interview.viewModels.MainActivityViewModel.UpdateListener
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,14 +36,27 @@ class MainActivity : AppCompatActivity() {
     })
   }
 
-  private fun renderItemList(state: ItemListViewState) {}
+  private fun renderItemList(state: ItemListViewState) {
+    val viewModel = MainActivityViewModel()
+    viewModel.makeApiCall(1)
+    viewModel.getBookListObserver().observe(this) {
+      if (it != null) {
+        //update adapter...
+        toolbarText.text = state.toolbarTitle
+        adapter.items = it.items as ArrayList<DeliveryItem>
+        adapter.notifyDataSetChanged()
+        println(adapter.items.toString())
+      } else {
+        Toast.makeText(this, "Error in fetching data", Toast.LENGTH_SHORT).show()
+      }
+    }
+  }
 
   private fun bindViews(parent: View) {
     toolbar = parent.findViewById(R.id.toolbar)
 
     recyclerView = parent.findViewById(R.id.recycler_view)
     recyclerView.layoutManager = LinearLayoutManager(parent.context, RecyclerView.VERTICAL, false)
-
     adapter = ItemAdapter()
     recyclerView.adapter = adapter
   }

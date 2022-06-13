@@ -6,11 +6,20 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkService {
-  private val retrofit: Retrofit = Builder()
-      .baseUrl("https://boiling-dusk-12902.herokuapp.com/")
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(GsonConverterFactory.create())
-      .build()
 
-  val api: NetworkApi = retrofit.create(NetworkApi::class.java)
+    companion object {
+        val BASE_URL = "https://boiling-dusk-12902.herokuapp.com/"
+
+        fun getRetroInstance(): Retrofit {
+
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+        }
+    }
 }
+
+
+

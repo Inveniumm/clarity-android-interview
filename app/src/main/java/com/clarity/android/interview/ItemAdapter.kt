@@ -5,17 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.clarity.android.interview.ItemAdapter.ViewHolder
+import com.clarity.android.interview.network.DeliveryItem
+import kotlinx.android.synthetic.main.item_row.view.*
 import java.util.ArrayList
 
 class ItemAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-  private val items = ArrayList<ItemRow>()
+   var items = ArrayList<DeliveryItem>()
 
   class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(row: ItemRow) {
-
-    }
+    fun bind(row: DeliveryItem) {
+        itemView.recycler_text.text = row.name
+      }
   }
 
   override fun onCreateViewHolder(
@@ -25,14 +27,11 @@ class ItemAdapter : RecyclerView.Adapter<ViewHolder>() {
     val view = LayoutInflater
         .from(parent.context)
         .inflate(R.layout.item_row, parent, false)
-
     return ViewHolder(view)
+
   }
 
-  override fun onBindViewHolder(
-    holder: ViewHolder,
-    position: Int
-  ) {
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder.bind(items[position])
   }
 
@@ -40,9 +39,10 @@ class ItemAdapter : RecyclerView.Adapter<ViewHolder>() {
     return items.size
   }
 
-  fun update(newItems: List<ItemRow>) {
+  fun update(newItems: List<DeliveryItem>) {
     items.clear()
     items.addAll(newItems)
     notifyDataSetChanged()
   }
+
 }
