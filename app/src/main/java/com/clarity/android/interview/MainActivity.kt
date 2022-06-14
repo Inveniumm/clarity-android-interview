@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     val itemScreenContainerView = findViewById<View>(R.id.item_screen_container)
     bindViews(itemScreenContainerView)
 
+    //The point of this fun is to inherit the interface in the VM
     viewModel.setStateUpdateListener(object : UpdateListener {
       override fun onUpdate(state: ItemListViewState) {
         renderItemList(state)
@@ -40,18 +41,20 @@ class MainActivity : AppCompatActivity() {
     val viewModel = MainActivityViewModel()
     viewModel.makeApiCall(1)
 
-    viewModel.getBookListObserver().observe(this) {
-      if (it != null) {
-        toolbarText.text = state.toolbarTitle
-        // as operator which casts the object to another object with particular reference.
-        adapter.items = it.items as ArrayList<DeliveryItem>
-        //update adapter...
-        adapter.notifyDataSetChanged()
-      } else {
-        ///if the response is null then it will send a toast to show that it is broken.
-        Toast.makeText(this, "Error in fetching data", Toast.LENGTH_SHORT).show()
+
+      viewModel.getBookListObserver().observe(this) {
+        if (it != null) {
+          toolbarText.text = state.toolbarTitle
+          // as operator which casts the object to another object with particular reference.
+          adapter.update(it.items as ArrayList<DeliveryItem>)
+          adapter.notifyDataSetChanged()
+          //update adapter...
+        } else {
+          ///if the response is null then it will send a toast to show that it is broken.
+          Toast.makeText(this, "Error in fetching data", Toast.LENGTH_SHORT).show()
+        }
       }
-    }
+
   }
 
   private fun bindViews(parent: View) {

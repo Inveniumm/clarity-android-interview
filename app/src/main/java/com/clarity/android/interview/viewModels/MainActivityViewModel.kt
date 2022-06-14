@@ -1,8 +1,11 @@
 package com.clarity.android.interview.viewModels
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.clarity.android.interview.ItemListViewState
 import com.clarity.android.interview.ItemRow
+import com.clarity.android.interview.R
 import com.clarity.android.interview.network.NetworkApi
 import com.clarity.android.interview.network.NetworkService
 import com.clarity.android.interview.network.OrderResponse
@@ -14,10 +17,10 @@ import io.reactivex.schedulers.Schedulers
 
 class MainActivityViewModel {
 
+  //An interface is an abstract class that is used to group related methods with empty
+  // bodies and they only have methods inside it implemented by a class to inherit.
   interface UpdateListener {
     fun onUpdate(state: ItemListViewState){
-      println(ItemRow(state.items.toString()))
-
     }
   }
   private var itemListViewState: ItemListViewState
@@ -27,10 +30,11 @@ class MainActivityViewModel {
   fun getBookListObserver(): MutableLiveData<OrderResponse> {
     return ordersList
   }
+
   init {
     val items = listOf(
-      ItemRow(ordersList.value?.items.toString()),
-      ItemRow("Apple")
+      ItemRow(R.string.orders.toString()),
+      ItemRow(ordersList.value?.items.toString())
     )
     itemListViewState = ItemListViewState("Delivery Items", items)
   }
@@ -60,8 +64,7 @@ class MainActivityViewModel {
 
       override fun onNext(t: OrderResponse) {
         ordersList.postValue(t)
-        println("Hello")
-        println(ordersList.postValue(t).toString())
+        Log.d(ContentValues.TAG, "onSubscribe : $t" )
       }
 
       override fun onSubscribe(d: Disposable) {
